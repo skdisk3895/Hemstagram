@@ -1,0 +1,25 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container">
+      <a class="navbar-brand" href="{% url 'articles:article_list' %}" style="font-family: 'Dancing Script', cursive;">
+          <i class="fas fa-heart" style="color:pink;"></i>
+          <strong>Hemstagram</strong>
+      </a>
+      <ul class="nav justify-content-end">
+        <li class="nav-item mx-3">
+          <a href="{% url 'articles:article_list' %}" style="color:pink;"><i class="fas fa-home"></i></a>
+        </li>
+        <li class="nav-item mx-3">
+          <a href="{% url 'articles:create_article' %}" style="color:pink;"><i class="fas fa-pen"></i></a>
+        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item mx-3">
+            <a href="{% url 'accounts:logout' %}" style="color:pink;"><i class="fas fa-sign-out-alt"></i></a>
+          </li>
+        {% else %}
+          <li class="nav-item mx-3">
+            <a href="{% url 'accounts:signup' %}" style="color:pink;"><i class="fas fa-user-plus"></i></a>
+          </li>
+        {% endif %}
+      </ul>
+  </div>
+</nav>
