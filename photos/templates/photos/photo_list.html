@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+    <div class="containers">
+      <div class="row">
+          {% for photo in photos %}
+            <div class="col-6 col-md-4 mb-4">
+              <a href="{% url 'photos:photo_detail' photo.pk %}">
+                <img src="{{ photo.image_thumbnail.url }}" alt="">
+              </a>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+{% endblock %}

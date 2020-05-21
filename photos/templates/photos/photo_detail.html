@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+    <div class="card mb-5">
+        <div class="row no-gutters" style="height: 600px;">
+        <div class="col-md-7" style="height: 600px;">
+            <img src="{{ photo.image.url }}" class="card-img" alt="..." height="100%">
+        </div>
+        <div class="col-md-5">
+            <div class="card-body d-flex align-items-center bd-highlight py-3">
+                <div class="bd-highlight">
+                    <i class="fas fa-user-circle mr-3" style="font-size: 30px;"></i>
+                </div>
+                <div class="bd-highlight">
+                    <strong>{{ photo.author }}</strong>
+                </div>
+                <div class="ml-auto p-2 bd-highlight">
+                    <a class="text-dark" href="#"><i class="fas fa-ellipsis-h"></i></a>
+                </div>
+            </div>
+            <hr class="my-0">
+            <div style="height: 400px; overflow-y: scroll;">
+                <div class="card-body d-flex align-items-center pb-0">
+                    <i class="fas fa-user-circle mr-3" style="font-size: 30px;"></i>
+                    <strong>{{ photo.author }} </strong>
+                </div>
+                <div class="container">
+                    <p class="my-0" style="margin-left: 50px;">{{ photo.title }}</p>  
+                </div>
+                <div class="card-body pt-0" style="margin-left: 47px;">
+                    <span style="opacity: 0.5;">{{ photo.created_at }}</span>
+                </div>
+                {% for comment in photo.photo_comments.all|dictsortreversed:"created_at" %}
+                    <div class="card-body d-flex align-items-center bd-highlight pb-0">
+                        <div class="bd-highlight">
+                            <i class="fas fa-user-circle mr-3" style="font-size: 30px;"></i>
+                        </div>
+                        <div class="bd-highlight">
+                            <strong>{{ comment.author }} </strong>
+                        </div>
+                        <div class="ml-auto p-2 bd-highlight">
+                            <a class="text-dark" href="#"><i class="fas fa-ellipsis-h"></i></a>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            {% if request.user in comment.like_users.all %}
+                                <a href="{% url 'photos:like_comment' photo.pk comment.pk %}"><i class="fas fa-heart" style="color: pink; font-size: 15px;"></i></a>
+                            {% else %}
+                                <a href="{% url 'photos:like_comment' photo.pk comment.pk %}"><i class="far fa-heart" style="color: black; font-size: 15px;"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="container">
+                        <p class="my-0" style="margin-left: 50px; margin-right: 50px;">{{ comment.opinion }}</p>  
+                    </div>
+                    <div class="card-body pt-0" style="margin-left: 47px;">
+                        <span style="opacity: 0.5;">{{ comment.created_at }}</span>
+                        <a class="text-dark ml-2" href="#" style="opacity: 0.5;"><strong>좋아요 {{ comment.like_users.count }}개</strong></a>
+                    </div>
+                {% endfor %}
+            </div>
+            <hr class="mt-0">
+            <div class="card-body pt-0 pb-1">
+                {% if request.user in photo.like_users.all %}
+                    <a href="{% url 'photos:like_photo' photo.pk %}"><i class="fas fa-heart mr-3" style="color: pink; font-size: 23px;"></i></a>
+                {% else %}
+                    <a href="{% url 'photos:like_photo' photo.pk %}"><i class="far fa-heart mr-3" style="color: black; font-size: 23px;"></i></a>
+                {% endif %}
+                <i class="far fa-comment mr-3" style="font-size: 23px;"></i>
+            </div>
+            <div class="mt-0 ml-3">
+                <strong>좋아요 {{ photo.like_users.count }}개</strong>
+            </div>
+            <div>
+                <form action="{% url 'photos:create_comment' photo.pk %}" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form layout='inline' %}
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

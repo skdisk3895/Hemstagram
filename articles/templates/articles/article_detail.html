@@ -1,5 +1,62 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
 {% block body %}
-    {{ article.title }}
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.author }} | {{ article.created_at }}</p>
+    <hr>
+    <p>{{ article.content }}</p>
+    <hr>
+    {% if request.user == article.author %}
+        <form action="{% url 'articles:delete_article' article.pk %}" method="POST">
+            {% csrf_token %}
+            <div class="d-flex justify-content-end mb-4">
+                <a class="btn btn-primary mx-2" href="{% url 'articles:update_article' article.pk %}" role="button">수정</a>
+                <button class="btn btn-danger">삭제</button>
+            </div>
+        </form>
+    {% endif %}
+    <div class="mb-2">
+        <i class="fas fa-heart mr-2" style="color:pink; font-size:25px"></i><a href="{% url 'articles:like_article' article.pk %}" style="color:pink; font-size:25px; text-decoration:none;"> 좋아요</a>
+    </div>
+    <div class="mb-4">
+    {% for like_user in article.like_users.all %}
+        <strong>{{ like_user.username }}</strong>
+    {% endfor %}
+        <span>님이 좋아합니다.</span>
+    </div>
+    <i class="far fa-comment" style="font-size:22px;"></i>
+    <strong style="font-size:23px;">댓글 {{ article.comments.count }}개</strong>
+    {% for comment in article.comments.all|dictsortreversed:"created_at" %}
+        <div class="d-flex justify-content-between mt-3">
+            <div>
+                <div class="mb-1">
+                    <strong>{{ comment.author }}</strong>
+                    <span style="opacity:0.5;">{{ comment.created_at }}</span>
+                </div>
+                <p>{{ comment.opinion }}</p>
+            </div>
+            {% if request.user == comment.author %}
+                <div class="dropdown mr-1">
+                    <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20" style="background-color:white; border:none;">
+                      ...
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                      <a class="dropdown-item" href="{% url 'articles:update_comment' article.pk comment.pk %}">수정</a>
+                      <a class="dropdown-item" href="{% url 'articles:delete_comment' article.pk comment.pk %}">삭제</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <div class="mt-4">
+        <form action="{% url 'articles:create_comment' article.pk %}" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form layout='inline' %}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary">댓글</button>
+                <a class="btn btn-danger mx-2" href="{% url 'articles:article_detail' article.pk %}" role="button">취소</a>
+            </div>
+        </form>
+    </div>
 {% endblock %}
