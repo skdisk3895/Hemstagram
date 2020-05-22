@@ -1,0 +1,7 @@
+.btn-grad {
+    background-image: linear-gradient(to right, #FFAFBD 0%, #ffc3a0 51%, #FFAFBD 100%)
+}
+
+.btn-grad:hover { 
+    background-position: right center; 
+}
