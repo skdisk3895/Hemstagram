@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
 
 {% block body %}
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button class="btn btn-primary float-right">업로드</button>
+        <button class="btn btn-grad float-right text-white">업로드</button>
     </form>
 {% endblock %}

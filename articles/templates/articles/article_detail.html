@@ -22,8 +22,13 @@
             </div>
         </form>
     {% endif %}
+    {{ request.user }}
     <div class="mb-2">
-        <i data-article_pk="{{ article.pk }}" id="likeArticleButton" class="fas fa-heart mr-2" style="color:pink; font-size:25px">좋아요</i>
+        {% if request.user in article.like_users.all %}
+            <i data-article_pk="{{ article.pk }}" id="likeArticleButton" class="fas fa-heart mr-2" style="color:pink; font-size:25px">좋아요 해제</i>
+        {% else %}
+            <i data-article_pk="{{ article.pk }}" id="likeArticleButton" class="fas fa-heart mr-2" style="color:pink; font-size:25px">좋아요</i>
+        {% endif %}
     </div>
     <div class="mb-4">
         <span>

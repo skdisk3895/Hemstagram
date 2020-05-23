@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
+
+{% block static %}
+<link rel="stylesheet" href="">
+<script src="{% static 'js/photo_like.js' %}"></script>
+{% endblock %}
 
 {% block body %}
     <div class="card mb-5">
@@ -62,9 +68,9 @@
             <hr class="mt-0">
             <div class="card-body pt-0 pb-1">
                 {% if request.user in photo.like_users.all %}
-                    <a href="{% url 'photos:like_photo' photo.pk %}"><i class="fas fa-heart mr-3" style="color: pink; font-size: 23px;"></i></a>
+                    <i id="photoLikeButton" class="fas fa-heart mr-3" style="color: pink; font-size: 23px;"></i>
                 {% else %}
-                    <a href="{% url 'photos:like_photo' photo.pk %}"><i class="far fa-heart mr-3" style="color: black; font-size: 23px;"></i></a>
+                    <i id="photoLikeButton" class="far fa-heart mr-3" style="color: black; font-size: 23px;"></i>
                 {% endif %}
                 <i class="far fa-comment mr-3" style="font-size: 23px;"></i>
             </div>

@@ -34,7 +34,6 @@ def create_article(request):
 def article_detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     form = CommentForm()
-    print(request.path)
     context = {
         'article': article,
         'form': form
@@ -119,6 +118,7 @@ def like_article(request, article_pk):
     result = list(result.values('username'))
     data = {
         'is_liked': is_liked,
-        'result': result
+        'result': result,
+        'user': str(user),
     }
     return JsonResponse(data)
