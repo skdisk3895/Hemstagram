@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 
@@ -109,7 +110,15 @@ def like_article(request, article_pk):
     # 만약 내가 이 글을 좋아요를 누른 상태라면
     if user in article.like_users.all():
         article.like_users.remove(user)
+        is_liked = False
     # 내가 이 글을 좋아요를 누른 상태가 아니라면
     else:
         article.like_users.add(user)
-    return redirect('articles:article_detail', article.pk)
+        is_liked = True
+    result = article.like_users.all()
+    result = list(result.values('username'))
+    data = {
+        'is_liked': is_liked,
+        'result': result
+    }
+    return JsonResponse(data)

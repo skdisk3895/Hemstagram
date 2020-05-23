@@ -9,10 +9,10 @@
     <title>Hamstagram{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script" rel="stylesheet">
+    {% bootstrap_css %}
     <script src="https://kit.fontawesome.com/01901fb831.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    {% bootstrap_css %}
-    {% block css %}
+    {% block static %}
     {% endblock %}
 </head>
 <body>
