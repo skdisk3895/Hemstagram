@@ -106,7 +106,7 @@ def delete_comment(request, photo_pk, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
     if request.user == comment.author:
         comment.delete()
-    return redirect('photos:photo_list')
+    return redirect('photos:photo_detail', photo.pk)
 
 @login_required
 def like_photo(request, photo_pk):

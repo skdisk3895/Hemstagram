@@ -3,13 +3,16 @@
 {% load static %}
 
 {% block static %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}">
+<link rel="stylesheet" href="{% static 'css/photo_form.css' %}">
 {% endblock %}
 
 {% block body %}
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button class="btn btn-grad float-right text-white">업로드</button>
+        <div class="float-right">
+            <button class="btn btn-grad float-right text-white">업로드</button>
+            <a class="btn btn-light" href="{% url 'photos:photo_list' %}" role="button">취소</a>
+        </div>
     </form>
 {% endblock %}

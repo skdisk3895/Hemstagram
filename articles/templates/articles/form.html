@@ -2,17 +2,20 @@
 {% load bootstrap4 %}
 {% load static %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'stylesheets/form.css' %}">
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/article_form.css' %}">
 {% endblock %}
-
 {% block body %}
     <form method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="float-right">
-            <button class="btn btn-grad">제출</button>
-            <a class="btn btn-dark" href="{% url 'articles:article_list' %}" role="button">취소</a>
+            {% if request.path == "/articles/create/" %}
+                <button class="btn btn-grad text-white">제출</button>
+            {% else %}
+                <button class="btn btn-grad text-white">수정</button>
+            {% endif %}
+            <a class="btn btn-light" href="{% url 'articles:article_list' %}" role="button">취소</a>
         </div>
     </form>
 {% endblock %}

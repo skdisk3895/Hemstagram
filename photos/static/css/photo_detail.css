@@ -2,6 +2,19 @@
     opacity: 0.5;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
+.comment-list {
+    height: 400px; 
+    overflow-y: scroll;
+}
+
+.comment-list::-webkit-scrollbar {
+    display: none;
+}
+
 .photo-liked-heart {
     color: pink; 
     font-size: 23px; 
@@ -33,12 +46,10 @@
 
 .comment-liked-heart {
     color: pink; 
-    font-size: 23px; 
-    cursor:pointer;
+    font-size: 15px;
 }
 
 .comment-unliked-heart {
     color: black; 
-    font-size: 23px; 
-    cursor:pointer;
+    font-size: 15px;
 }

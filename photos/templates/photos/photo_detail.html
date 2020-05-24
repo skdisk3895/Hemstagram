@@ -23,22 +23,22 @@
                 </div>
                 {% if request.user == photo.author %}
                     <div class="ml-auto p-2 bd-highlight">
-                        <a data-toggle="modal" href="#myModal{{ photo.pk }}" class="text-dark"><i class="fas fa-ellipsis-h"></i></a>
-                        <div class="modal photo-options" id="myModal{{ photo.pk }}" tabindex="-1" role="dialog">
+                        <a data-toggle="modal" href="#myPhoto{{ photo.pk }}" class="text-dark"><i class="fas fa-ellipsis-h"></i></a>
+                        <div class="modal photo-options" id="myPhoto{{ photo.pk }}" tabindex="-1" role="dialog">
                             <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                <a class="text-dark" href="{% url 'photos:update_photo' photo.pk %}"><p>수정</p></a>
-                                <a class="text-dark" href="{% url 'photos:delete_photo' photo.pk %}"><p>삭제</p></a>
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <a class="text-dark" href="{% url 'photos:update_photo' photo.pk %}"><p>수정</p></a>
+                                        <a class="text-dark" href="{% url 'photos:delete_photo' photo.pk %}"><p>삭제</p></a>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
                 {% endif %}
             </div>
             <hr class="my-0">
-            <div style="height: 400px; overflow-y: scroll;">
+            <div class='comment-list'>
                 <div class="card-body d-flex align-items-center pb-0">
                     <i class="fas fa-user-circle mr-3" style="font-size: 30px;"></i>
                     <strong>{{ photo.author }} </strong>
@@ -59,13 +59,23 @@
                         </div>
                         {% if request.user == comment.author %}
                             <div class="ml-auto p-2 bd-highlight">
-                                <a class="text-dark" href="#"><i class="fas fa-ellipsis-h"></i></a>
+                                <a data-toggle="modal" class="text-dark" href="#myPhoto{{ comment.pk }}"><i class="fas fa-ellipsis-h"></i></a>
+                                <div class="modal photo-options" id="myPhoto{{ comment.pk }}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <a class="text-dark" href="{% url 'photos:update_comment' photo.pk comment.pk %}"><p>수정</p></a>
+                                                <a class="text-dark" href="{% url 'photos:delete_comment' photo.pk comment.pk %}"><p>삭제</p></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="p-2 bd-highlight">
                                 {% if request.user in comment.like_users.all %}
-                                    <i data-photo_pk="{{ photo.pk }}" data-comment_pk="{{ comment.pk }}" class="commentLikeButton fas fa-heart" style="color: pink; font-size: 15px;"></i>
+                                    <i data-photo_pk="{{ photo.pk }}" data-comment_pk="{{ comment.pk }}" class="commentLikeButton fas fa-heart comment-liked-heart"></i>
                                 {% else %}
-                                    <i data-photo_pk="{{ photo.pk }}" data-comment_pk="{{ comment.pk }}" class="commentLikeButton far fa-heart" style="color: black; font-size: 15px;"></i>
+                                    <i data-photo_pk="{{ photo.pk }}" data-comment_pk="{{ comment.pk }}" class="commentLikeButton far fa-heart comment-unliked-heart"></i>
                                 {% endif %}
                             </div>
                         {% else %}
@@ -83,7 +93,7 @@
                     </div>
                     <div class="card-body pt-0" style="margin-left: 47px;">
                         <span class="option-text">{{ comment.created_at }}</span>
-                        <strong class="option-text">좋아요 {{ comment.like_users.count }}개</strong>
+                        <strong class="option-text">좋아요 <strong id="likeCount{{ comment.pk }}">{{ comment.like_users.all|length }}</strong>개</strong>
                     </div>
                 {% endfor %}
             </div>
