@@ -1,0 +1,44 @@
+.option-text {
+    opacity: 0.5;
+}
+
+.photo-liked-heart {
+    color: pink; 
+    font-size: 23px; 
+    cursor:pointer;
+}
+
+.photo-unliked-heart {
+    color: black; 
+    font-size: 23px; 
+    cursor:pointer;
+}
+
+.photo-options {
+    margin-top: 25%;
+    margin-bottom: 25%;
+}
+
+.comment-form {
+    width: calc(100% - 58px);
+}
+
+.comment-input {
+    border: none;
+}
+
+.comment-button {
+    margin-bottom: 16px;
+}
+
+.comment-liked-heart {
+    color: pink; 
+    font-size: 23px; 
+    cursor:pointer;
+}
+
+.comment-unliked-heart {
+    color: black; 
+    font-size: 23px; 
+    cursor:pointer;
+}

@@ -6,7 +6,7 @@ window.onload = function article_like() {
             .then(function(res) {
                     // console.log(res.data)
                     const likeUsers = document.querySelector(`#likeUsers${articlePk}`)
-                    // console.log(likeUsers)
+                    console.log(likeUsers)
                     if (res.data.is_liked) {
                         event.target.innerText = '좋아요 해제'
                     }else {

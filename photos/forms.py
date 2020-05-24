@@ -10,3 +10,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('opinion', )
+        widgets = {
+            'opinion': forms.TextInput(
+                attrs={'placeholder': '댓글 달기',
+                       'class': 'comment-input',
+            }),
+        }

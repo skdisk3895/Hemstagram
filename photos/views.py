@@ -132,6 +132,12 @@ def like_comment(request, photo_pk, comment_pk):
     user = request.user
     if user in comment.like_users.all():
         comment.like_users.remove(user)
+        is_liked = False
     else:
         comment.like_users.add(user)
-    return redirect('photos:photo_detail', photo.pk)
+        is_liked = True
+    data = {
+        'is_liked': is_liked,
+        'like_count': comment.like_users.count()
+    }
+    return JsonResponse(data)
