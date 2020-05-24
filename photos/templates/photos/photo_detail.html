@@ -68,14 +68,14 @@
             <hr class="mt-0">
             <div class="card-body pt-0 pb-1">
                 {% if request.user in photo.like_users.all %}
-                    <i id="photoLikeButton" class="fas fa-heart mr-3" style="color: pink; font-size: 23px;"></i>
+                    <i data-photo_pk="{{ photo.pk }}" id="photoLikeButton" class="fas fa-heart mr-3" style="color: pink; font-size: 23px;"></i>
                 {% else %}
-                    <i id="photoLikeButton" class="far fa-heart mr-3" style="color: black; font-size: 23px;"></i>
+                    <i data-photo_pk="{{ photo.pk }}" id="photoLikeButton" class="far fa-heart mr-3" style="color: black; font-size: 23px;"></i>
                 {% endif %}
                 <i class="far fa-comment mr-3" style="font-size: 23px;"></i>
             </div>
             <div class="mt-0 ml-3">
-                <strong>좋아요 {{ photo.like_users.count }}개</strong>
+                <strong>좋아요 <strong id="likeCount{{ photo.pk }}">{{ photo.like_users.all|length }}</strong>개</strong>
             </div>
             <div>
                 <form action="{% url 'photos:create_comment' photo.pk %}" method="POST">

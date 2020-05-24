@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_GET, require_POST, require_http_methods
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_GET, require_POST, require_http_methods
+from django.http import JsonResponse
 from .models import Photo, Comment
 from .forms import PhotoForm, CommentForm
 
@@ -115,10 +115,16 @@ def like_photo(request, photo_pk):
     # 만약 내가 이 글을 좋아요를 누른 상태라면
     if user in photo.like_users.all():
         photo.like_users.remove(user)
+        is_liked = False
     # 내가 이 글을 좋아요를 누른 상태가 아니라면
     else:
         photo.like_users.add(user)
-    return redirect('photos:photo_detail', photo.pk)
+        is_liked = True
+    data = {
+        'is_liked': is_liked,
+        'like_count': photo.like_users.count()
+    }
+    return JsonResponse(data)
 
 def like_comment(request, photo_pk, comment_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
