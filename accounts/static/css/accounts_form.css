@@ -1,0 +1,18 @@
+.btn-login-signup {
+    width: 100%;
+    background-color: pink;
+}
+
+.form-login-signup {
+    position: absolute;
+    padding: 40px;
+    width: 450px; 
+    height: 450px; 
+    top: 50%; 
+    left: 50%; 
+    margin-top: -225px;
+    margin-left: -225px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+}

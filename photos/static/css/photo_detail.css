@@ -42,14 +42,17 @@ a:hover {
 
 .comment-button {
     margin-bottom: 16px;
+    color: skyblue;
 }
 
 .comment-liked-heart {
     color: pink; 
     font-size: 15px;
+    cursor: pointer;
 }
 
 .comment-unliked-heart {
     color: black; 
     font-size: 15px;
+    cursor: pointer;
 }

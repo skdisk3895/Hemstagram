@@ -48,13 +48,12 @@ def photo_detail(request, photo_pk):
 @login_required
 def update_photo(request, photo_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
-    print(request.user, photo.author)
-    print(photo.title)
     if request.method == 'POST':
-        form = PhotoForm(request.POST, instance=photo)
+        form = PhotoForm(request.POST, request.FILES, instance=photo)
         if form.is_valid():
+            print('OK')
             form.save()
-            return redirect('photos:photo_list')
+            return redirect('photos:photo_detail', photo.pk)
     else:
         form = PhotoForm(instance=photo)
     context = {
@@ -91,7 +90,7 @@ def update_comment(request, photo_pk, comment_pk):
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             comment.save()
-            return redirect('articles:article_detail', photo.pk)
+            return redirect('photos:photo_detail', photo.pk)
     else:
         form = CommentForm(instance=comment)
     context = {

@@ -1,3 +1,7 @@
 .btn-grad {
     background-color: pink;
 }
+
+.btn-grad:hover {
+    background-color: rgb(247, 158, 173);
+}

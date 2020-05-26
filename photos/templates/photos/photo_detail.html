@@ -66,6 +66,7 @@
                                             <div class="modal-body">
                                                 <a class="text-dark" href="{% url 'photos:update_comment' photo.pk comment.pk %}"><p>수정</p></a>
                                                 <a class="text-dark" href="{% url 'photos:delete_comment' photo.pk comment.pk %}"><p>삭제</p></a>
+                                                <button type="button text-center" class="btn btn-link" data-dismiss="modal">취소</button>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +117,7 @@
                     <div class="comment-form">
                         {% bootstrap_form form layout='inline' %}
                     </div>
-                    <button class="btn btn-default text-primary comment-button">게시</button>
+                    <button class="btn btn-default comment-button">게시</button>
                 </div>
             </form>
         </div>

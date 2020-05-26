@@ -4,7 +4,14 @@ from .models import Photo, Comment
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ('title', 'content', 'image', )
+        fields = ('title', 'image', )
+        # widgets = {
+        #     'content': forms.Textarea(
+        #         attrs={
+        #             'placeholder': '나의 이야기...',
+        #             }
+        #     ),
+        # }
 
 class CommentForm(forms.ModelForm):
     class Meta:

@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/accounts_form.css' %}">
+{% endblock %}
 
 {% block body %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button class="btn btn-primary">로그인</button>
-    </form>
+    <div class="form-login-signup">
+        <div class="mb-4 mt-2" style="text-align: center;">
+            <strong class="mb-5" style="font-family: 'Dancing Script', cursive; font-size: 50px;">Hemstagram</strong>
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form layout='inline' %}
+            <button class="btn btn-login-signup text-white">로그인</button>
+        </form>
+    </div>
 {% endblock %}
