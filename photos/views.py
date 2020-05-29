@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from .models import Photo, Comment
 from .forms import PhotoForm, CommentForm
 
-@login_required
 @require_GET
+@login_required
 def photo_list(request):
     photos = Photo.objects.order_by('-created_at')
     form = CommentForm()
@@ -46,6 +46,7 @@ def photo_detail(request, photo_pk):
     return render(request, 'photos/photo_detail.html', context)
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def update_photo(request, photo_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
     if request.method == 'POST':
@@ -61,6 +62,7 @@ def update_photo(request, photo_pk):
     }
     return render(request, 'photos/form.html', context)
 
+@require_POST
 @login_required
 def delete_photo(request, photo_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
@@ -70,8 +72,8 @@ def delete_photo(request, photo_pk):
         messages.error(request, '권한이 없습니다.')
     return redirect('photos:photo_list')
 
-@login_required
 @require_POST
+@login_required
 def create_comment(request, photo_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
     form = CommentForm(request.POST)
@@ -83,6 +85,7 @@ def create_comment(request, photo_pk):
     return redirect('photos:photo_detail', photo.pk)
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def update_comment(request, photo_pk, comment_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
@@ -99,6 +102,7 @@ def update_comment(request, photo_pk, comment_pk):
     }
     return render(request, 'articles/update_comment.html', context)
 
+@require_POST
 @login_required
 def delete_comment(request, photo_pk, comment_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)

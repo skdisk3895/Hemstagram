@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/article_list.css' %}">
+{% endblock %}
 
 {% block body %}
     <table class="table">
@@ -14,11 +19,19 @@
         {% for article in articles %}
           <tr>
             <th scope="row">{{ article.pk }}</th>
-            <td><a class="text-dark" href="{% url 'articles:article_detail' article.pk %}">{{ article.title }}[{{ article.comments.count }}]</a></td>
+            <td><a class="text-decoration-none text-dark" href="{% url 'articles:article_detail' article.pk %}">{{ article.title }}[{{ article.comments.count }}]</a></td>
             <td>{{ article.author }}</td>
             <td>{{ article.created_at }}</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
+
+    {% if posts.has_previous %}
+      <a href="?page=1">맨 앞으로</a>
+      <a href="?page={{ posts.previous_page_number }}">이전으로</a>
+    {% endif %}
+    <span>{{ post.number }}</span>
+    <span></span>
+    <span></span>
 {% endblock %}

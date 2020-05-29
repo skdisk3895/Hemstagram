@@ -1,20 +1,27 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET, require_http_methods
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from .forms import ArticleForm, CommentForm
 from .models import Article, Comment
 
+@require_GET
 @login_required
 def article_list(request):
     articles = Article.objects.order_by('-created_at')
+    paginator = Paginator(articles, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     context = {
-        'articles': articles
+        'articles': articles,
+        'posts': posts
     }
     return render(request, 'articles/article_list.html', context)
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def create_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
@@ -30,6 +37,7 @@ def create_article(request):
     }
     return render(request, 'articles/form.html', context)
 
+@require_GET
 @login_required
 def article_detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
@@ -41,6 +49,7 @@ def article_detail(request, article_pk):
     return render(request, 'articles/article_detail.html', context)
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def update_article(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
@@ -55,15 +64,15 @@ def update_article(request, article_pk):
     }
     return render(request, 'articles/form.html', context)
 
-@login_required
 @require_POST
+@login_required
 def delete_article(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     article.delete()
     return redirect('articles:article_list')
 
-@login_required
 @require_POST
+@login_required
 def create_comment(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     form = CommentForm(request.POST)
@@ -75,6 +84,7 @@ def create_comment(request, article_pk):
     return redirect('articles:article_detail', article.pk)
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def update_comment(request, article_pk, comment_pk):
     article = get_object_or_404(Article, pk=article_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
@@ -94,6 +104,7 @@ def update_comment(request, article_pk, comment_pk):
     }
     return render(request, 'articles/update_comment.html', context)
 
+@require_POST
 @login_required
 def delete_comment(request, article_pk, comment_pk):
     article = get_object_or_404(Article, pk=article_pk)

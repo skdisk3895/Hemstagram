@@ -4,7 +4,6 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, Thumbnail
 
 class Photo(models.Model):
-    title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField()
     image_thumbnail = ImageSpecField(source='image',
