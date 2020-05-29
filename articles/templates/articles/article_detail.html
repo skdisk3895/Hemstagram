@@ -33,9 +33,11 @@
     </div>
     <div class="mb-4">
         <span>
-            {% for user in article.like_users.all %}
-                <span id="likeUsers{{ article.pk }}">{{ user.username }}</span>
-            {% endfor %}
+            {% if article.like_users.count == 0 %}
+                <span id="likeUsers{{ article.pk }}"></span>
+            {% else %}
+                <span id="likeUsers{{ article.pk }}">{{ article.like_users.all }}</span>
+            {% endif %}
             님이 좋아합니다.
         </span>
     </div>

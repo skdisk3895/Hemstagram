@@ -4,28 +4,26 @@ window.onload = function article_like() {
         const articlePk = event.target.dataset.article_pk
         axios.get(`/articles/${articlePk}/like/`)
             .then(function(res) {
-                    // console.log(res.data)
+                    console.log(res.data.result)
+                    // console.log(res.data.result[0].username)
                     const likeUsers = document.querySelector(`#likeUsers${articlePk}`)
-                    console.log(likeUsers)
+                    // console.log(likeUsers)
                     if (res.data.is_liked) {
                         event.target.innerText = '좋아요 해제'
                     }else {
                         event.target.innerText = '좋아요'
                     }
-                    idx = 0
-                    obj = res.data.result
                     var names = ''
-                    while (obj[idx]) {
-                        const name = obj[idx]['username']
-                        names += name
+                    res.data.result.forEach(username => {
+                        names += username.username
                         names += ' '
-                        idx++
-                    }
+                    });
                     console.log(names)
-                    likeUsers.innerText = names
+                    console.log(likeUsers)
+                    likeUsers.innerText = names 
                 })
             // .catch(function(err) {
-            //     console.log(err)
+            //     console.error(err)
             // })
     })
 }

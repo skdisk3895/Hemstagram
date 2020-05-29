@@ -13,10 +13,10 @@ def article_list(request):
     articles = Article.objects.order_by('-created_at')
     paginator = Paginator(articles, 10)
     page = request.GET.get('page')
-    posts = paginator.get_page(page)
+    page_obj = paginator.get_page(page)
     context = {
         'articles': articles,
-        'posts': posts
+        'page_obj': page_obj
     }
     return render(request, 'articles/article_list.html', context)
 

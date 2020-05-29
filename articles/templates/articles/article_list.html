@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load bootstrap_pagination %}
 
 {% block static %}
 <link rel="stylesheet" href="{% static 'css/article_list.css' %}">
@@ -16,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for article in articles %}
+        {% for article in page_obj %}
           <tr>
             <th scope="row">{{ article.pk }}</th>
             <td><a class="text-decoration-none text-dark" href="{% url 'articles:article_detail' article.pk %}">{{ article.title }}[{{ article.comments.count }}]</a></td>
@@ -27,11 +28,6 @@
       </tbody>
     </table>
 
-    {% if posts.has_previous %}
-      <a href="?page=1">맨 앞으로</a>
-      <a href="?page={{ posts.previous_page_number }}">이전으로</a>
-    {% endif %}
-    <span>{{ post.number }}</span>
-    <span></span>
-    <span></span>
+  
+    {% bootstrap_paginate page_obj range=5 show_prev_next="true" previous_label="prev" show_first_last="true" next_label="next" extra_pagination_classes="justify-content-center mt-5" %}
 {% endblock %}

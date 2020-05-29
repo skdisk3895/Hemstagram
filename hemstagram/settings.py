@@ -47,6 +47,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bootstrap4',
+    'bootstrap_pagination',
     'imagekit',
     'django.contrib.admin',
     'django.contrib.auth',
