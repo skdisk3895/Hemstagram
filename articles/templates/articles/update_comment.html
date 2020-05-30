@@ -12,15 +12,6 @@
     <hr>
     <p>{{ article.content }}</p>
     <hr>
-    {% if request.user == article.author %}
-        <form action="{% url 'articles:delete_article' article.pk %}" method="POST">
-            {% csrf_token %}
-            <div class="d-flex justify-content-end mb-4">
-                <a class="btn btn-primary mx-2" href="{% url 'articles:update_article' article.pk %}" role="button">수정</a>
-                <button class="btn btn-danger">삭제</button>
-            </div>
-        </form>
-    {% endif %}
     <form action="" method="POST">
         {% csrf_token %}
         {% bootstrap_form form layout='inline' %}

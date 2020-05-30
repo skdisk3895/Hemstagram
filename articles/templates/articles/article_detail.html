@@ -4,7 +4,7 @@
 
 {% block static %}
 <link rel="stylesheet" href="{% static 'css/article_form.css' %}">
-<!-- <link rel="stylesheet" href=""> -->
+<link rel="stylesheet" href="{% static 'css/article_detail.css' %}">
 <script src="{% static 'js/article_like.js' %}"></script>
 {% endblock %}
 
@@ -23,12 +23,11 @@
             </div>
         </form>
     {% endif %}
-    {{ request.user }}
     <div class="mb-2">
         {% if request.user in article.like_users.all %}
-            <i data-article_pk="{{ article.pk }}" id="likeArticleButton" class="fas fa-heart mr-2" style="color:pink; font-size:25px">좋아요 해제</i>
+            <i data-article_pk="{{ article.pk }}" id="likeArticleButton" class="fas fa-heart mr-2 like-btn">좋아요 해제</i>
         {% else %}
-            <i data-article_pk="{{ article.pk }}" id="likeArticleButton" class="fas fa-heart mr-2" style="color:pink; font-size:25px">좋아요</i>
+            <i data-article_pk="{{ article.pk }}" id="likeArticleButton" class="fas fa-heart mr-2 like-btn">좋아요</i>
         {% endif %}
     </div>
     <div class="mb-4">
@@ -36,25 +35,27 @@
             {% if article.like_users.count == 0 %}
                 <span id="likeUsers{{ article.pk }}"></span>
             {% else %}
-                <span id="likeUsers{{ article.pk }}">{{ article.like_users.all }}</span>
+                {% for user in article.like_users.all %}
+                    <span id="likeUsers{{ article.pk }}">{{ user.username }}</span>
+                {% endfor %}
             {% endif %}
             님이 좋아합니다.
         </span>
     </div>
-    <i class="far fa-comment" style="font-size:22px;"></i>
-    <strong style="font-size:23px;">댓글 {{ article.comments.count }}개</strong>
+    <i class="far fa-comment comment-img"></i>
+    <strong class="comment-count-info">댓글 {{ article.comments.count }}개</strong>
     {% for comment in article.comments.all|dictsortreversed:"created_at" %}
         <div class="d-flex justify-content-between mt-3">
             <div>
                 <div class="mb-1">
                     <strong>{{ comment.author }}</strong>
-                    <span style="opacity:0.5;">{{ comment.created_at }}</span>
+                    <span class="text-option">{{ comment.created_at }}</span>
                 </div>
                 <p>{{ comment.opinion }}</p>
             </div>
             {% if request.user == comment.author %}
                 <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20" style="background-color:white; border:none;">
+                    <button type="button" class="btn btn-light dropdown-toggle comment-dropdown-img" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
                       ...
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
@@ -71,7 +72,7 @@
             {% bootstrap_form form layout='inline' %}
             <div class="d-flex justify-content-end">
                 <button class="btn btn-grad text-white">댓글</button>
-                <a class="btn btn-light mx-2" href="{% url 'articles:article_detail' article.pk %}" role="button" style="border-style: solid;">취소</a>
+                <a class="btn btn-light mx-2 btn-cancel" href="{% url 'articles:article_detail' article.pk %}" role="button">취소</a>
             </div>
         </form>
     </div>

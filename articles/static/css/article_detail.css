@@ -1,0 +1,25 @@
+.like-btn {
+    color: pink; 
+    font-size: 25px;
+}
+
+.text-option {
+    opacity: 0.5;
+}
+
+.comment-img {
+    font-size: 22px;
+}
+
+.comment-count-info {
+    font-size: 23px;
+}
+
+.comment-dropdown-img {
+    background-color: white;
+    border: none;
+}
+
+.btn-cancel {
+    border-style: solid;
+}

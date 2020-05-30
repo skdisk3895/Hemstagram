@@ -1,4 +1,4 @@
-window.onload = function Like() {
+window.onload = function like() {
     this.photoLike()
     this.commentLike()
 }

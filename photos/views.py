@@ -52,7 +52,6 @@ def update_photo(request, photo_pk):
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES, instance=photo)
         if form.is_valid():
-            print('OK')
             form.save()
             return redirect('photos:photo_detail', photo.pk)
     else:
@@ -85,22 +84,14 @@ def create_comment(request, photo_pk):
     return redirect('photos:photo_detail', photo.pk)
 
 @login_required
-@require_http_methods(['GET', 'POST'])
+@require_POST
 def update_comment(request, photo_pk, comment_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST, instance=comment)
-        if form.is_valid():
-            comment.save()
-            return redirect('photos:photo_detail', photo.pk)
-    else:
-        form = CommentForm(instance=comment)
-    context = {
-        'form': form,
-        'photo': photo,
-    }
-    return render(request, 'articles/update_comment.html', context)
+    form = CommentForm(request.POST, instance=comment)
+    if form.is_valid():
+        comment.save()
+    return redirect('photos:photo_detail', photo.pk)
 
 @require_POST
 @login_required

@@ -2,8 +2,20 @@
     opacity: 0.5;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 a:hover {
     text-decoration: none;
+}
+
+.card-height {
+    height: 600px;
+}
+
+.profile-photo {
+    font-size: 30px;
 }
 
 .comment-list {
@@ -13,6 +25,14 @@ a:hover {
 
 .comment-list::-webkit-scrollbar {
     display: none;
+}
+
+.photo-title {
+    margin-left: 50px;
+}
+
+.photo-created {
+    margin-left: 47px;
 }
 
 .photo-liked-heart {
@@ -28,8 +48,7 @@ a:hover {
 }
 
 .photo-options {
-    margin-top: 25%;
-    margin-bottom: 25%;
+    top: 40%;
 }
 
 .comment-form {
@@ -38,6 +57,15 @@ a:hover {
 
 .comment-input {
     border: none;
+}
+
+.comment-opinion {
+    margin-left: 50px; 
+    margin-right: 50px;
+}
+
+.comment-info {
+    margin-left: 47px;
 }
 
 .comment-button {
@@ -56,3 +84,16 @@ a:hover {
     font-size: 15px;
     cursor: pointer;
 }
+
+.comment-img {
+    font-size: 23px;
+}
+
+.btn-close {
+    color: gray;
+    margin-bottom: 16px;
+}
+
+.btn-del {
+    text-decoration: none;
+} 
