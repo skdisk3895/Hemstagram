@@ -22,8 +22,5 @@ window.onload = function article_like() {
                     console.log(likeUsers)
                     likeUsers.innerText = names 
                 })
-            // .catch(function(err) {
-            //     console.error(err)
-            // })
     })
 }

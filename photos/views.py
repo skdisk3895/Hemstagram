@@ -106,11 +106,9 @@ def delete_comment(request, photo_pk, comment_pk):
 def like_photo(request, photo_pk):
     photo = get_object_or_404(Photo, pk=photo_pk)
     user = request.user
-    # 만약 내가 이 글을 좋아요를 누른 상태라면
     if user in photo.like_users.all():
         photo.like_users.remove(user)
         is_liked = False
-    # 내가 이 글을 좋아요를 누른 상태가 아니라면
     else:
         photo.like_users.add(user)
         is_liked = True

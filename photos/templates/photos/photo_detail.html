@@ -118,7 +118,7 @@
                     </div>
                     <div class="card-body pt-0 comment-info">
                         <span class="option-text">{{ comment.created_at }}</span>
-                        <strong class="option-text">좋아요 <strong id="likeCount{{ comment.pk }}">{{ comment.like_users.all|length }}</strong>개</strong>
+                        <strong class="option-text">좋아요 <strong id="commentLikeCount{{ comment.pk }}">{{ comment.like_users.all|length }}</strong>개</strong>
                     </div>
                 {% endfor %}
             </div>
@@ -132,7 +132,7 @@
                 <i class="far fa-comment mr-3 comment-img"></i>
             </div>
             <div class="mt-2 ml-3">
-                <strong>좋아요 <strong id="likeCount{{ photo.pk }}">{{ photo.like_users.all|length }}</strong>개</strong>
+                <strong>좋아요 <strong id="photoLikeCount{{ photo.pk }}">{{ photo.like_users.all|length }}</strong>개</strong>
             </div>
             <hr class="my-1">
             <form id="commentForm" action="{% url 'photos:create_comment' photo.pk %}" method="POST">
